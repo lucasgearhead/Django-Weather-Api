@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Weather
-from serializers import WeatherSerializer
+from weather_api.serializers import WeatherSerializer
 import requests
 
 class WeatherAPIView(APIView):
