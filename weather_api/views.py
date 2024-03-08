@@ -7,7 +7,7 @@ import requests
 class WeatherAPIView(APIView):
     def get(self, request):
         city = request.query_params.get('city', 'Sorocaba')
-        url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid=YOUR_API_KEY"
+        url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid=1871496f2ca4459545804dd8e8be545b"
         response = requests.get(url)
         data = response.json()
 
