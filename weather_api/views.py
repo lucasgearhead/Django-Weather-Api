@@ -9,12 +9,12 @@ import requests
 class WeatherAPIView(APIView):
     def get(self, request):
         # Get query parameters from the request
-        city = request.query_params.get('city', 'nagasaki')
-        units = request.query_params.get('units', 'metric')
-        appid = request.query_params.get('appid', 'YOUR-APP-ID')
+        city = request.query_params.get('city')
+        units = request.query_params.get('units')
+        appid = request.query_params.get('appid')
 
         # Make a request to the OpenWeatherMap API
-        url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={appid}&units={units}"
+        url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&units={units}&appid={appid}"
         response = requests.get(url)
 
         # Handle non-200 status codes

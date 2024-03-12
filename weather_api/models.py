@@ -6,37 +6,37 @@ class Weather(models.Model):
     """
 
     # Coordinates
-    coord_lon = models.FloatField()  # Longitude
-    coord_lat = models.FloatField()  # Latitude
+    coord_lon = models.FloatField(null=True)  # Longitude
+    coord_lat = models.FloatField(null=True)  # Latitude
 
     # Weather information
     weather_main = models.CharField(max_length=50)  # Main weather condition
     weather_description = models.CharField(max_length=50)  # Description of weather condition
 
     # Temperature
-    temp = models.FloatField()  # Temperature in Kelvin, can be converted to °C or °F depending on the 'units' variable
-    feels_like = models.FloatField()  # "Feels like" temperature in Kelvin, can be converted to °C or °F depending on the 'units' variable
-    temp_min = models.FloatField()  # Minimum temperature in Kelvin, can be converted to °C or °F depending on the 'units' variable
-    temp_max = models.FloatField()  # Maximum temperature in Kelvin, can be converted to °C or °F depending on the 'units' variable
+    temp = models.FloatField(null=True)  # Temperature in Kelvin, can be converted to °C or °F depending on the 'units' variable
+    feels_like = models.FloatField(null=True)  # "Feels like" temperature in Kelvin, can be converted to °C or °F depending on the 'units' variable
+    temp_min = models.FloatField(null=True)  # Minimum temperature in Kelvin, can be converted to °C or °F depending on the 'units' variable
+    temp_max = models.FloatField(null=True)  # Maximum temperature in Kelvin, can be converted to °C or °F depending on the 'units' variable
 
     # Atmospheric pressure
-    pressure = models.FloatField()  # Atmospheric pressure in hPa
+    pressure = models.FloatField(null=True)  # Atmospheric pressure in hPa
 
     # Humidity
-    humidity = models.FloatField()  # Humidity level in %
+    humidity = models.FloatField(null=True)  # Humidity level in %
 
     # Additional atmospheric information
     sea_level = models.FloatField(null=True)  # Atmospheric pressure at sea level in hPa
     grnd_level = models.FloatField(null=True)  # Atmospheric pressure at ground level in hPa
-    visibility = models.IntegerField()  # Visibility in meters (max 10km)
+    visibility = models.IntegerField(null=True)  # Visibility in meters (max 10km)
 
     # Wind
-    wind_speed = models.FloatField()  # Wind speed in m/s
-    wind_deg = models.FloatField()  # Wind direction in degrees
-    wind_gust = models.FloatField()  # Wind gust speed in m/s
+    wind_speed = models.FloatField(null=True)  # Wind speed in m/s
+    wind_deg = models.FloatField(null=True)  # Wind direction in degrees
+    wind_gust = models.FloatField(null=True)  # Wind gust speed in m/s
 
     # Clouds
-    clouds_all = models.FloatField()  # Cloudiness in %
+    clouds_all = models.FloatField(null=True)  # Cloudiness in %
 
     # Precipitation
     rain_one_hr = models.FloatField(null=True)  # Rainfall in the last one hour in mm
