@@ -8,20 +8,25 @@ import requests
 
 class WeatherAPIView(APIView):
     def get(self, request):
+        # Get query parameters from the request
         city = request.query_params.get('city', 'nagasaki')
         units = request.query_params.get('units', 'metric')
         appid = request.query_params.get('appid', 'YOUR-APP-ID')
+
+        # Make a request to the OpenWeatherMap API
         url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={appid}&units={units}"
         response = requests.get(url)
 
+        # Handle non-200 status codes
         if response.status_code != 200:
             data = response.json()
             error_message = data.get('message', 'Erro ao obter dados do clima.')
             raise APIException(detail=error_message, code=response.status_code)
         
+        # Extract data from the response
         data = response.json()
 
-        # Salvando os dados no banco de dados
+        # Save the retrieved weather data to the database
         weather_data = Weather.objects.create(
             coord_lon=data['coord']['lon'],
             coord_lat=data['coord']['lat'],
@@ -53,14 +58,16 @@ class WeatherAPIView(APIView):
             cod=data['cod']
         )
 
-
+        # Serialize the weather data and return the response
         serializer = WeatherSerializer(weather_data)
         return Response(serializer.data)
-    
+
 class WeatherHistoryListAPIView(ListAPIView):
+    # Retrieve all weather history records
     queryset = Weather.objects.all()
     serializer_class = WeatherSerializer
 
 class WeatherHistoryDetailAPIView(RetrieveAPIView):
+    # Retrieve a specific weather history record by its ID
     queryset = Weather.objects.all()
     serializer_class = WeatherSerializer
