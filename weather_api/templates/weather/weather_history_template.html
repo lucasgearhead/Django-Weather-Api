@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather History</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      .weather-history {
+        margin-top: 20px;
+      }
+
+      .weather-history table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .weather-history table th,
+      .weather-history table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ccc;
+      }
+
+      .weather-history table th {
+        background-color: #f4f4f4;
+        font-weight: bold;
+      }
+
+      .weather-history table td {
+        background-color: #fff;
+      }
+
+      .footer {
+        margin-top: 20px;
+        text-align: center;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Weather History</h1>
+      <div class="weather-history">
+        <table>
+          <tr>
+            <th>City</th>
+            <th>Temperature</th>
+            <th>Weather Description</th>
+          </tr>
+          {% for entry in weather_history %}
+          <tr>
+            <td>{{ entry.city }}</td>
+            <td>{{ entry.temp }}</td>
+            <td>{{ entry.weather_description }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
