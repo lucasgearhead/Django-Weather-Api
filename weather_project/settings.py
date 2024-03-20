@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
     'weather_api'
 ]
 
@@ -78,21 +77,7 @@ WSGI_APPLICATION = 'weather_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'weather_database',
-        'ENFORCE_SCHEMA': False,
-        'CLIENT': {
-            # Update the following fields with your MongoDB connection information
-            'host': 'localhost',  # Replace 'localhost' with your MongoDB host
-            'port': 27017,        # Replace 27017 with your MongoDB port number
-            
-            # Uncomment the following lines and add your MongoDB username and password
-            # "username": "your_username",   # Replace 'your_username' with your MongoDB username
-            # "password": "your_password",   # Replace 'your_password' with your MongoDB password
-            
-            # Specify the authentication source if applicable
-            'authSource': 'admin',  # Replace 'admin' with your MongoDB authentication source if needed
-        },
+        'ENGINE': 'django.db.backends.dummy',  # 'dummy' to disable Django's default database
     }
 }
 

@@ -1,14 +1,11 @@
 from django.urls import path
-from weather_api.views import WeatherAPIView, WeatherHistoryDetailAPIView, WeatherHistoryListAPIView 
+from weather_api.views import weather_api_view, weather_history_view
 
 urlpatterns = [
     # Endpoint for retrieving current weather information
-    path('weather/', WeatherAPIView.as_view(), name='weather'),
+    path('weather/', weather_api_view, name='weather_api'),
 
     # Endpoint for retrieving a list of weather history records
-    path('history/', WeatherHistoryListAPIView.as_view(), name='weather-history-list'),
-
-    # Endpoint for retrieving details of a specific weather history record
-    path('history/<int:pk>/', WeatherHistoryDetailAPIView.as_view(), name='weather-history-detail'),
+    path('history/', weather_history_view, name='weather-history-list'),
 ]
 
