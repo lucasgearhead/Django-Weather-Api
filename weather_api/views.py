@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.http import JsonResponse
 from .serializers import WeatherSerializer, WeatherHistorySerializer
 from .repositories import WeatherRepository
@@ -30,10 +31,10 @@ def weather_api_view(request):
             'coord_lat': data['coord']['lat'],
             'weather_main': data['weather'][0]['main'],
             'weather_description': data['weather'][0]['description'],
-            'temp': data['main']['temp'],
-            'feels_like': data['main']['feels_like'],
-            'temp_min': data['main']['temp_min'],
-            'temp_max': data['main']['temp_max'],
+            'temp': f"{data['main']['temp']} °C" if units == 'metric' else f"{data['main']['temp']} °F" if units == 'imperial' else f"{data['main']['temp']} K",
+            'feels_like': f"{data['main']['feels_like']} °C" if units == 'metric' else f"{data['main']['temp']} °F" if units == 'imperial' else f"{data['main']['temp']} K",
+            'temp_min': f"{data['main']['temp_min']} °C" if units == 'metric' else f"{data['main']['temp']} °F" if units == 'imperial' else f"{data['main']['temp']} K",
+            'temp_max': f"{data['main']['temp_max']} °C" if units == 'metric' else f"{data['main']['temp']} °F" if units == 'imperial' else f"{data['main']['temp']} K",
             'pressure': data['main']['pressure'],
             'humidity': data['main']['humidity'],
             'sea_level': data['main']['sea_level'] if 'sea_level' in data['main'] else None,
@@ -62,8 +63,8 @@ def weather_api_view(request):
         serializer = WeatherSerializer(weather_data)
         serialized_data = serializer.data_to_dict()
 
-        # Return the serialized data as JSON response
-        return JsonResponse(serialized_data)
+        # Render the template with the weather data as context
+        return render(request, 'weather/weather_template.html', serialized_data)
 
     # Handle other HTTP methods
     return JsonResponse({'error': 'Método não permitido'}, status=405)
@@ -78,8 +79,8 @@ def weather_history_view(request):
         weather_history_serializer = WeatherHistorySerializer(weather_history)
         serialized_data = weather_history_serializer.data_to_list()
 
-        # Return the serialized data as JSON response
-        return JsonResponse(serialized_data, safe=False)
+        # Render the template with the weather history as context
+        return render(request, 'weather/weather_history_template.html', {'weather_history': serialized_data})
 
     # Handle other HTTP methods
     return JsonResponse({'error': 'Método não permitido'}, status=405)
