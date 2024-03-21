@@ -1,9 +1,17 @@
 class WeatherSerializer:
     def __init__(self, data):
+        # Initialize the WeatherSerializer with weather data
         self.data = data
 
     def data_to_dict(self):
-        return {
+        """
+        Convert weather data to a dictionary following a specific structure.
+
+        Returns:
+        - dict: Serialized weather data in dictionary format.
+        """
+        # Create a dictionary structure representing the serialized weather data
+        serialized_data = {
             'coord': {
                 'lon': self.data['coord_lon'],
                 'lat': self.data['coord_lat']
@@ -51,14 +59,26 @@ class WeatherSerializer:
             'name': self.data['city'],
             'cod': self.data['cod']
         }
+        return serialized_data
+
 
 class WeatherHistorySerializer:
     def __init__(self, weather_history):
+        # Initialize the WeatherHistorySerializer with a list of weather history data
         self.weather_history = weather_history
 
     def data_to_list(self):
+        """
+        Convert weather history data to a list of dictionaries following a specific structure.
+
+        Returns:
+        - list: Serialized weather history data in list format.
+        """
+        # Initialize an empty list to store serialized weather history data
         serialized_data = []
+        # Iterate over each weather data in the weather history
         for weather_data in self.weather_history:
+            # Create a dictionary structure representing the serialized weather data
             data = {
                 'coord_lon': weather_data['coord_lon'],
                 'coord_lat': weather_data['coord_lat'],
@@ -89,5 +109,6 @@ class WeatherHistorySerializer:
                 'city': weather_data['city'],
                 'cod': weather_data['cod']
             }
+            # Append the serialized weather data to the list
             serialized_data.append(data)
         return serialized_data

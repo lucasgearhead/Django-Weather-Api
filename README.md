@@ -6,7 +6,6 @@ A Django REST Framework API for retrieving weather information from the OpenWeat
 
 - Retrieve current weather information for a specific city.
 - View historical weather data stored in the database.
-- Retrieve details of a specific weather history record.
 
 ## Installation
 
@@ -22,15 +21,9 @@ git clone https://github.com/seu-usuario/weather-api.git
 pip install -r requirements.txt
 ```
 
-3. Set up the MongoDB database according to the settings in `settings.py`.
+3. Set up the MongoDB database according to the settings in `repositories.py`.
 
-4. Apply database migrations:
-
-```bash
-python manage.py migrate
-```
-
-5. Run the development server:
+4. Run the development server:
 
 ```bash
 python manage.py runserver
@@ -49,10 +42,10 @@ python manage.py runserver
 
 #### Usage Example:
 
-To retrieve current weather information for the city of Miami in imperial units:
+To retrieve current weather information for the city of Rio de Janeiro in imperial units:
 
 ```
-/weather/?city=Miami&units=imperial&appid=YOUR_OPENWEATHERMAP_API_KEY
+/weather/?city=Rio%20de%20Janeiro&units=imperial&appid=YOUR_OPENWEATHERMAP_API_KEY
 ```
 
 Make sure to replace "YOUR OPENWEATHERMAP API KEY" with your actual API key.
@@ -62,10 +55,6 @@ Make sure to replace "YOUR OPENWEATHERMAP API KEY" with your actual API key.
 - **List Endpoint:**
 
   - **URL:** `/history/`
-  - **Method:** GET
-
-- **Detail Endpoint:**
-  - **URL:** `/history/<id>/`
   - **Method:** GET
 
 ## Contributing
