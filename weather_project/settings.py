@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'weather_api'
+    'corsheaders',
+    'weather_api',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +50,35 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_EXPOSE_HEADERS = [
+    'X-Custom-Header',
+]
+
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'DELETE',
+]
+
+CORS_ALLOW_HEADERS = [
+    'Authorization',
+    'Content-Type',
+]
+
+CSRF_COOKIE_SAMESITE = None
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:3000',
+    
 ]
 
 ROOT_URLCONF = 'weather_project.urls'

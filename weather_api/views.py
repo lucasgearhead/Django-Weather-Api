@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from .serializers import WeatherSerializer, WeatherHistorySerializer
 from .repositories import WeatherRepository
 import requests
+from django.views.decorators.csrf import csrf_exempt
 
 def weather_api_view(request):
     if request.method == 'GET':
@@ -63,8 +64,8 @@ def weather_api_view(request):
         serializer = WeatherSerializer(weather_data)
         serialized_data = serializer.data_to_dict()
 
-        # Render the template with the weather data as context
-        return render(request, 'weather/weather_template.html', serialized_data)
+        # Return the weather data as JSON response
+        return JsonResponse(serialized_data)
 
     # Handle other HTTP methods
     return JsonResponse({'error': 'Método não permitido'}, status=405)
@@ -79,8 +80,43 @@ def weather_history_view(request):
         weather_history_serializer = WeatherHistorySerializer(weather_history)
         serialized_data = weather_history_serializer.data_to_list()
 
-        # Render the template with the weather history as context
-        return render(request, 'weather/weather_history_template.html', {'weather_history': serialized_data})
+        # Return the weather history as JSON response
+        return JsonResponse({'weather_history': serialized_data})
 
     # Handle other HTTP methods
     return JsonResponse({'error': 'Método não permitido'}, status=405)
+
+@csrf_exempt
+def delete_weather_view(request, weather_id):
+    if request.method == 'DELETE':
+        # Delete the weather record with the provided ID
+        weather_repo = WeatherRepository()
+        deleted_count = weather_repo.delete_weather(weather_id)
+
+        # Check if the record was deleted successfully
+        if deleted_count == 1:
+            return JsonResponse({'message': 'Weather record deleted successfully'})
+        else:
+            return JsonResponse({'error': 'Failed to delete weather record'}, status=500)
+
+    # Handle other HTTP methods
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+def get_specific_weather_view(request, weather_id):
+    if request.method == 'GET':
+        # Get the weather record with the provided ID
+        weather_repo = WeatherRepository()
+        weather_data = weather_repo.get_weather(weather_id)
+
+        # Check if the record exists
+        if weather_data:
+            # If the record exists, serialize it
+            serializer = WeatherSerializer(weather_data)
+            serialized_data = serializer.data_to_dict()
+            return JsonResponse(serialized_data)
+        else:
+            # If the record doesn't exist, return an error response
+            return JsonResponse({'error': 'Weather record not found'}, status=404)
+
+    # Handle other HTTP methods
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
