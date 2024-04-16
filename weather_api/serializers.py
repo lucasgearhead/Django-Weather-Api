@@ -12,6 +12,7 @@ class WeatherSerializer:
         """
         # Create a dictionary structure representing the serialized weather data
         serialized_data = {
+            '_id': str(self.data['_id']),
             'coord': {
                 'lon': self.data['coord_lon'],
                 'lat': self.data['coord_lat']
@@ -80,6 +81,7 @@ class WeatherHistorySerializer:
         for weather_data in self.weather_history:
             # Create a dictionary structure representing the serialized weather data
             data = {
+                '_id': str(weather_data['_id']),
                 'coord_lon': weather_data['coord_lon'],
                 'coord_lat': weather_data['coord_lat'],
                 'weather_main': weather_data['weather_main'],
