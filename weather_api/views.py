@@ -86,22 +86,14 @@ def weather_history_view(request):
     # Handle other HTTP methods
     return JsonResponse({'error': 'Método não permitido'}, status=405)
 
-@csrf_exempt
-def delete_weather_view(request, weather_id):
-    if request.method == 'DELETE':
-        # Delete the weather record with the provided ID
-        weather_repo = WeatherRepository()
-        deleted_count = weather_repo.delete_weather(weather_id)
 
-        # Check if the record was deleted successfully
-        if deleted_count == 1:
-            return JsonResponse({'message': 'Weather record deleted successfully'})
-        else:
-            return JsonResponse({'error': 'Failed to delete weather record'}, status=500)
+def delete_weather_view(request, weather_id):
+    
 
     # Handle other HTTP methods
     return JsonResponse({'error': 'Method not allowed'}, status=405)
 
+@csrf_exempt
 def get_specific_weather_view(request, weather_id):
     if request.method == 'GET':
         # Get the weather record with the provided ID
@@ -117,6 +109,17 @@ def get_specific_weather_view(request, weather_id):
         else:
             # If the record doesn't exist, return an error response
             return JsonResponse({'error': 'Weather record not found'}, status=404)
+        
+    if request.method == 'DELETE':
+        # Delete the weather record with the provided ID
+        weather_repo = WeatherRepository()
+        deleted_count = weather_repo.delete_weather(weather_id)
+
+        # Check if the record was deleted successfully
+        if deleted_count == 1:
+            return JsonResponse({'message': 'Weather record deleted successfully'})
+        else:
+            return JsonResponse({'error': 'Failed to delete weather record'}, status=500)
 
     # Handle other HTTP methods
     return JsonResponse({'error': 'Method not allowed'}, status=405)
