@@ -1,9 +1,8 @@
-from django.shortcuts import render
 from django.http import JsonResponse
 from .serializers import WeatherSerializer, WeatherHistorySerializer
 from .repositories import WeatherRepository
-import requests
 from django.views.decorators.csrf import csrf_exempt
+import requests
 
 def weather_api_view(request):
     if request.method == 'GET':
